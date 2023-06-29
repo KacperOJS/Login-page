@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { LoginContext } from './context/LoginContext';
+import Login from './pages/Login';
+import UserInfo from './pages/UserInfo';
 
 function App() {
+  const [haslo, setHaslo] = useState('');
+  const [name, setName] = useState('');
+  const [data, setData] = useState(false);
+  const [info, setInfo] = useState([
+    {
+      name: 'Kacper',
+      haslo: '12345',
+      info: 'junior dev'
+    },
+    {
+      name: 'Rycho',
+      haslo: '123456',
+      info: 'senior dev'
+    }
+  ]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LoginContext.Provider value={{ setName, name, setHaslo, haslo, setData,info }}>
+        {data ? <UserInfo /> : <Login />}
+      </LoginContext.Provider>
     </div>
   );
 }
